@@ -1,1 +1,672 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Shop — Productos Digitales</title>
+<meta name="description" content="Organizadores digitales, invitaciones, e-books y más. Todo digital, todo en un lugar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Nunito:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --beige: #DFC9AC;
+  --beige-light: #EFE0CB;
+  --beige-pale: #FAF6F0;
+  --blue: #637E92;
+  --blue-light: #A1ACB3;
+  --blue-pale: #f0f4f6;
+  --brown: #563D2A;
+  --brown-mid: #948C81;
+  --white: #ffffff;
+  --ink: #2a1f14;
+  --muted: #7a6f66;
+  --border: #e8ddd2;
+  --surface: #fdf9f5;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Nunito',sans-serif; color:var(--ink); background:var(--white); overflow-x:hidden; }
+
+/* NAV */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:rgba(255,255,255,0.95); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 2rem; height:68px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+.nav-logo-icon { width:36px; height:36px; }
+.nav-logo-text { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:600; color:var(--ink); letter-spacing:0.5px; }
+.nav-links { display:flex; align-items:center; gap:1.8rem; list-style:none; }
+.nav-links a { text-decoration:none; color:var(--muted); font-weight:700; font-size:0.85rem; transition:color 0.2s; letter-spacing:0.3px; }
+.nav-links a:hover { color:var(--brown); }
+.nav-cta { background:var(--brown) !important; color:white !important; padding:8px 20px; border-radius:8px; transition:all 0.2s !important; }
+.nav-cta:hover { background:var(--blue) !important; transform:translateY(-1px); }
+.nav-hamburger { display:none; background:none; border:none; cursor:pointer; font-size:1.4rem; color:var(--ink); }
+
+/* HERO */
+.hero {
+  padding-top:100px; padding-bottom:80px;
+  background:linear-gradient(160deg, var(--beige-pale) 0%, var(--white) 60%);
+  position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:-100px; right:-150px;
+  width:500px; height:500px;
+  background:radial-gradient(circle, rgba(99,126,146,0.08) 0%, transparent 70%);
+  border-radius:50%;
+}
+.hero-inner { max-width:1100px; margin:0 auto; padding:0 2rem; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; }
+.hero-tag { display:inline-flex; align-items:center; gap:6px; background:rgba(86,61,42,0.08); color:var(--brown); font-size:0.75rem; font-weight:800; padding:5px 14px; border-radius:20px; text-transform:uppercase; letter-spacing:1.2px; margin-bottom:1.5rem; }
+.hero h1 { font-family:'Cormorant Garamond',serif; font-size:3.4rem; line-height:1.15; color:var(--ink); margin-bottom:1.2rem; font-weight:600; }
+.hero h1 em { font-style:italic; color:var(--blue); }
+.hero-sub { font-size:1rem; color:var(--muted); line-height:1.8; margin-bottom:2rem; font-weight:600; max-width:460px; }
+.hero-actions { display:flex; gap:12px; flex-wrap:wrap; }
+.btn-primary { display:inline-flex; align-items:center; gap:8px; background:var(--brown); color:white; padding:13px 26px; border-radius:10px; font-family:'Nunito',sans-serif; font-weight:800; font-size:0.95rem; text-decoration:none; transition:all 0.2s; box-shadow:0 4px 16px rgba(86,61,42,0.25); }
+.btn-primary:hover { background:var(--blue); transform:translateY(-2px); box-shadow:0 8px 24px rgba(99,126,146,0.3); }
+.btn-secondary { display:inline-flex; align-items:center; gap:8px; background:white; color:var(--ink); padding:13px 26px; border-radius:10px; font-family:'Nunito',sans-serif; font-weight:800; font-size:0.95rem; text-decoration:none; border:2px solid var(--border); transition:all 0.2s; }
+.btn-secondary:hover { border-color:var(--blue); color:var(--blue); transform:translateY(-2px); }
+.hero-visual { position:relative; display:flex; justify-content:center; }
+.hero-img-card { background:white; border-radius:20px; overflow:hidden; box-shadow:0 20px 60px rgba(86,61,42,0.12); border:1px solid var(--border); max-width:380px; width:100%; }
+.hero-img-placeholder { background:linear-gradient(135deg, var(--beige-light), var(--beige)); aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px; color:var(--brown); }
+.hero-img-placeholder span { font-size:3rem; }
+.hero-img-placeholder p { font-size:0.82rem; font-weight:700; opacity:0.7; }
+.hero-img-caption { padding:16px 20px; }
+.hero-img-caption h3 { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:600; color:var(--ink); margin-bottom:4px; }
+.hero-img-caption p { font-size:0.8rem; color:var(--muted); font-weight:600; }
+.hero-float-1 { position:absolute; top:-10px; right:-10px; background:white; border-radius:14px; padding:10px 16px; box-shadow:0 8px 24px rgba(0,0,0,0.1); border:1px solid var(--border); font-size:0.75rem; font-weight:800; color:var(--brown); animation:float 3s ease-in-out infinite; }
+.hero-float-2 { position:absolute; bottom:20px; left:-20px; background:var(--brown); border-radius:14px; padding:10px 16px; box-shadow:0 8px 24px rgba(86,61,42,0.3); font-size:0.75rem; font-weight:800; color:white; animation:float 3s ease-in-out infinite 1.5s; }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+/* SECCIONES */
+section { padding:80px 2rem; }
+.section-inner { max-width:1100px; margin:0 auto; }
+.section-tag { display:inline-block; background:rgba(86,61,42,0.08); color:var(--brown); font-size:0.72rem; font-weight:800; padding:4px 12px; border-radius:20px; text-transform:uppercase; letter-spacing:1.2px; margin-bottom:1rem; }
+.section-title { font-family:'Cormorant Garamond',serif; font-size:2.4rem; color:var(--ink); margin-bottom:0.8rem; line-height:1.2; font-weight:600; }
+.section-sub { font-size:0.95rem; color:var(--muted); line-height:1.7; font-weight:600; max-width:540px; }
+.section-header { margin-bottom:3rem; }
+.section-header.centered { text-align:center; }
+.section-header.centered .section-sub { margin:0 auto; }
+
+/* SOBRE NOSOTROS */
+.about { background:var(--surface); }
+.about-inner { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; }
+.about-text p { font-size:0.98rem; color:var(--muted); line-height:1.8; font-weight:600; margin-bottom:1.2rem; }
+.about-text p:last-child { margin-bottom:0; }
+.about-values { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.about-value { background:white; border-radius:12px; padding:1.2rem; border:1px solid var(--border); }
+.about-value-icon { font-size:1.5rem; margin-bottom:6px; }
+.about-value-title { font-weight:800; font-size:0.88rem; color:var(--ink); margin-bottom:4px; }
+.about-value-desc { font-size:0.78rem; color:var(--muted); font-weight:600; line-height:1.5; }
+
+/* PRODUCTOS */
+.products { background:white; }
+.products-nav { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:2.5rem; }
+.prod-tab { background:var(--surface); color:var(--muted); border:1px solid var(--border); padding:8px 18px; border-radius:20px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.82rem; cursor:pointer; transition:all 0.2s; }
+.prod-tab.active, .prod-tab:hover { background:var(--brown); color:white; border-color:var(--brown); }
+.products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+.product-card { background:white; border-radius:16px; border:1px solid var(--border); overflow:hidden; transition:all 0.3s; cursor:pointer; }
+.product-card:hover { transform:translateY(-6px); box-shadow:0 16px 48px rgba(86,61,42,0.12); }
+.product-img { aspect-ratio:4/3; background:linear-gradient(135deg,var(--beige-light),var(--beige-pale)); display:flex; align-items:center; justify-content:center; font-size:2.5rem; position:relative; overflow:hidden; }
+.product-badge { position:absolute; top:10px; right:10px; background:var(--brown); color:white; font-size:0.65rem; font-weight:800; padding:3px 10px; border-radius:10px; text-transform:uppercase; letter-spacing:0.8px; }
+.product-badge.free { background:var(--blue); }
+.product-body { padding:1.2rem; }
+.product-category { font-size:0.68rem; font-weight:800; color:var(--blue); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
+.product-name { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:600; color:var(--ink); margin-bottom:6px; line-height:1.3; }
+.product-desc { font-size:0.8rem; color:var(--muted); font-weight:600; line-height:1.5; margin-bottom:1rem; }
+.product-footer { display:flex; align-items:center; justify-content:space-between; }
+.product-price { font-family:'DM Mono',monospace; font-size:1.1rem; font-weight:500; color:var(--brown); }
+.product-price.free { color:var(--blue); }
+.btn-product { background:var(--brown); color:white; padding:7px 16px; border-radius:8px; font-family:'Nunito',sans-serif; font-weight:800; font-size:0.78rem; text-decoration:none; transition:all 0.2s; border:none; cursor:pointer; }
+.btn-product:hover { background:var(--blue); }
+.btn-product.free { background:var(--blue); }
+.btn-product.free:hover { background:var(--brown); }
+
+/* ASISTAPP */
+.asistapp-section { background:linear-gradient(135deg,var(--brown) 0%,#3a2519 100%); position:relative; overflow:hidden; }
+.asistapp-section::before { content:''; position:absolute; top:-200px; right:-200px; width:500px; height:500px; background:radial-gradient(circle,rgba(99,126,146,0.2) 0%,transparent 70%); border-radius:50%; }
+.asistapp-inner { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; position:relative; z-index:1; }
+.asistapp-tag { background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.9); }
+.asistapp-title { color:white; }
+.asistapp-sub { color:rgba(255,255,255,0.7); }
+.asistapp-features { margin-top:1.5rem; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.asistapp-feat { display:flex; align-items:center; gap:8px; font-size:0.85rem; color:rgba(255,255,255,0.8); font-weight:700; }
+.asistapp-feat-icon { width:24px; height:24px; background:rgba(255,255,255,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; flex-shrink:0; }
+.asistapp-actions { margin-top:2rem; display:flex; gap:12px; flex-wrap:wrap; }
+.btn-asistapp { background:white; color:var(--brown); padding:12px 24px; border-radius:10px; font-family:'Nunito',sans-serif; font-weight:800; font-size:0.92rem; text-decoration:none; transition:all 0.2s; }
+.btn-asistapp:hover { background:var(--beige-light); transform:translateY(-2px); }
+.btn-asistapp-outline { background:transparent; color:white; border:2px solid rgba(255,255,255,0.3); padding:12px 24px; border-radius:10px; font-family:'Nunito',sans-serif; font-weight:800; font-size:0.92rem; text-decoration:none; transition:all 0.2s; }
+.btn-asistapp-outline:hover { border-color:white; background:rgba(255,255,255,0.1); }
+.asistapp-mockup { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:1.5rem; }
+.asistapp-mockup-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; padding-bottom:0.8rem; border-bottom:1px solid rgba(255,255,255,0.1); }
+.asistapp-mockup-logo { font-family:'Cormorant Garamond',serif; color:white; font-size:1.1rem; }
+.asistapp-mockup-logo span { color:#1bc5b4; }
+.asistapp-mockup-badge { background:rgba(27,197,180,0.2); color:#1bc5b4; font-size:0.65rem; font-weight:800; padding:3px 10px; border-radius:10px; text-transform:uppercase; letter-spacing:0.8px; }
+.mock-row { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05); font-size:0.8rem; color:rgba(255,255,255,0.7); font-weight:600; }
+.mock-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.mock-dot.p { background:#27ae60; }
+.mock-dot.a { background:#e74c3c; }
+.mock-dot.j { background:#f5a623; }
+
+/* GRATIS */
+.free-section { background:var(--blue-pale); }
+.free-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+.free-card { background:white; border-radius:16px; padding:1.8rem; border:1px solid var(--border); text-align:center; transition:all 0.3s; }
+.free-card:hover { transform:translateY(-4px); box-shadow:0 12px 36px rgba(99,126,146,0.12); }
+.free-icon { font-size:2.5rem; margin-bottom:1rem; display:block; }
+.free-title { font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-weight:600; color:var(--ink); margin-bottom:0.5rem; }
+.free-desc { font-size:0.82rem; color:var(--muted); font-weight:600; line-height:1.6; margin-bottom:1.2rem; }
+.btn-free { display:inline-flex; align-items:center; gap:6px; background:var(--blue); color:white; padding:8px 18px; border-radius:8px; font-family:'Nunito',sans-serif; font-weight:800; font-size:0.8rem; text-decoration:none; transition:all 0.2s; }
+.btn-free:hover { background:var(--brown); }
+
+/* TESTIMONIOS */
+.testimonials { background:var(--surface); }
+.testimonials-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+.testimonial-card { background:white; border-radius:16px; padding:1.8rem; border:1px solid var(--border); transition:all 0.3s; }
+.testimonial-card:hover { box-shadow:0 8px 32px rgba(86,61,42,0.08); }
+.t-stars { color:var(--beige); font-size:0.9rem; margin-bottom:1rem; }
+.t-text { font-size:0.9rem; color:var(--muted); line-height:1.7; font-weight:600; font-style:italic; margin-bottom:1.2rem; }
+.t-author { display:flex; align-items:center; gap:10px; }
+.t-avatar { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,var(--beige),var(--brown-mid)); display:flex; align-items:center; justify-content:center; font-size:0.9rem; flex-shrink:0; }
+.t-name { font-weight:800; font-size:0.85rem; color:var(--ink); }
+.t-role { font-size:0.72rem; color:var(--muted); font-weight:600; }
+
+/* CONTACTO */
+.contact { background:white; }
+.contact-inner { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
+.contact-form { background:var(--surface); border-radius:20px; padding:2rem; border:1px solid var(--border); }
+.form-group { margin-bottom:1.2rem; }
+.form-group label { display:block; font-size:0.78rem; font-weight:800; color:var(--ink); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:6px; }
+.form-group input, .form-group textarea, .form-group select {
+  width:100%; padding:10px 14px; border:1.5px solid var(--border); border-radius:10px;
+  font-family:'Nunito',sans-serif; font-size:0.9rem; color:var(--ink); background:white;
+  transition:border-color 0.2s; outline:none;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color:var(--blue); }
+.form-group textarea { resize:vertical; min-height:100px; }
+.btn-contact { width:100%; padding:13px; background:var(--brown); color:white; font-family:'Nunito',sans-serif; font-weight:800; font-size:0.95rem; border:none; border-radius:10px; cursor:pointer; transition:all 0.2s; }
+.btn-contact:hover { background:var(--blue); }
+.contact-info-title { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:600; color:var(--ink); margin-bottom:1rem; }
+.contact-info-sub { font-size:0.92rem; color:var(--muted); line-height:1.7; font-weight:600; margin-bottom:2rem; }
+.contact-links { display:flex; flex-direction:column; gap:12px; }
+.contact-link { display:flex; align-items:center; gap:12px; padding:14px 18px; background:var(--surface); border-radius:12px; border:1px solid var(--border); text-decoration:none; color:var(--ink); font-weight:700; font-size:0.88rem; transition:all 0.2s; }
+.contact-link:hover { border-color:var(--blue); color:var(--blue); background:var(--blue-pale); }
+.contact-link-icon { width:36px; height:36px; border-radius:8px; background:var(--brown); color:white; display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
+
+/* CTA FINAL */
+.cta-section { background:linear-gradient(135deg,var(--blue) 0%,#4a6070 100%); text-align:center; }
+.cta-section .section-title { color:white; font-size:2.6rem; }
+.cta-section .section-sub { color:rgba(255,255,255,0.75); margin:0 auto 2.5rem; }
+.cta-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.btn-cta-white { background:white; color:var(--blue); padding:14px 28px; border-radius:10px; font-family:'Nunito',sans-serif; font-weight:800; font-size:0.95rem; text-decoration:none; transition:all 0.2s; }
+.btn-cta-white:hover { background:var(--beige-light); transform:translateY(-2px); }
+.btn-cta-outline { background:transparent; color:white; border:2px solid rgba(255,255,255,0.4); padding:14px 28px; border-radius:10px; font-family:'Nunito',sans-serif; font-weight:800; font-size:0.95rem; text-decoration:none; transition:all 0.2s; }
+.btn-cta-outline:hover { background:rgba(255,255,255,0.1); border-color:white; }
+
+/* FOOTER */
+footer { background:var(--ink); padding:3rem 2rem; }
+.footer-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:3rem; }
+.footer-logo { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:600; color:white; margin-bottom:0.8rem; }
+.footer-desc { font-size:0.82rem; color:rgba(255,255,255,0.5); line-height:1.7; font-weight:600; }
+.footer-col-title { font-size:0.75rem; font-weight:800; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1.2px; margin-bottom:1rem; }
+.footer-links { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.footer-links a { text-decoration:none; color:rgba(255,255,255,0.6); font-size:0.85rem; font-weight:600; transition:color 0.2s; }
+.footer-links a:hover { color:var(--beige-light); }
+.footer-bottom { max-width:1100px; margin:2rem auto 0; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:space-between; font-size:0.78rem; color:rgba(255,255,255,0.35); font-weight:600; }
+
+/* ANIMACIONES */
+.fade-up { opacity:0; transform:translateY(24px); transition:opacity 0.6s ease,transform 0.6s ease; }
+.fade-up.visible { opacity:1; transform:translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width:768px) {
+  .hero-inner, .about-inner, .asistapp-inner, .contact-inner { grid-template-columns:1fr; }
+  .hero h1 { font-size:2.2rem; }
+  .hero-visual { order:-1; }
+  .hero-float-1, .hero-float-2 { display:none; }
+  .products-grid, .free-grid, .testimonials-grid { grid-template-columns:1fr; }
+  .asistapp-features { grid-template-columns:1fr; }
+  .footer-inner { grid-template-columns:1fr; gap:2rem; }
+  .nav-links { display:none; }
+  .nav-hamburger { display:block; }
+  .section-title { font-size:1.9rem; }
+  .about-values { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg class="nav-logo-icon" viewBox="0 0 40 40" fill="none">
+      <circle cx="20" cy="20" r="19" stroke="#563D2A" stroke-width="2"/>
+      <circle cx="20" cy="16" r="5" fill="#637E92"/>
+      <circle cx="20" cy="16" r="2" fill="white"/>
+      <circle cx="14" cy="22" r="2" fill="#ff6eb4"/>
+      <circle cx="26" cy="14" r="2" fill="#f5d020"/>
+      <path d="M18 28 L20 22 L22 28" stroke="#563D2A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-logo-text">Digital Shop</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#asistapp">AsistApp</a></li>
+    <li><a href="#gratis">Gratis</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+  </ul>
+  <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="fade-up">
+      <div class="hero-tag">✨ Productos 100% digitales</div>
+      <h1>Inspirar, organizar y <em>simplificar</em> tu vida digital</h1>
+      <p class="hero-sub">Diseñamos recursos pensados para acompañarte en tu día a día, combinando creatividad y tecnología. Todo en un mismo lugar, funcional y digital.</p>
+      <div class="hero-actions">
+        <a href="#productos" class="btn-primary">🛍 Ver productos</a>
+        <a href="#gratis" class="btn-secondary">🎁 Recursos gratis</a>
+      </div>
+    </div>
+    <div class="hero-visual fade-up">
+      <div style="position:relative;display:inline-block;width:100%">
+        <div class="hero-img-card">
+          <div class="hero-img-placeholder">
+            <span>📋</span>
+            <p>Organizadores & Agendas Digitales</p>
+          </div>
+          <div class="hero-img-caption">
+            <h3>Organizadores Digitales</h3>
+            <p>Planificá tus días con estilo y eficiencia</p>
+          </div>
+        </div>
+        <div class="hero-float-1">✅ Todo digital</div>
+        <div class="hero-float-2">📦 Descarga inmediata</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE NOSOTROS -->
+<section class="about" id="nosotros">
+  <div class="section-inner">
+    <div class="about-inner">
+      <div class="fade-up">
+        <div class="section-tag">Quiénes somos</div>
+        <h2 class="section-title">Un espacio creado para vos</h2>
+        <div class="about-text">
+          <p>Digital Shop es un espacio creado para inspirar, organizar y simplificar la vida digital.</p>
+          <p>Diseñamos productos y recursos pensados para acompañarte en tu día a día, combinando creatividad y tecnología.</p>
+          <p>Todo en un mismo lugar, funcional y 100% digital. Porque creemos que organizarse puede ser hermoso y sencillo al mismo tiempo.</p>
+        </div>
+      </div>
+      <div class="about-values fade-up">
+        <div class="about-value">
+          <div class="about-value-icon">🎨</div>
+          <div class="about-value-title">Diseño con propósito</div>
+          <div class="about-value-desc">Cada producto está pensado para ser funcional y estéticamente agradable.</div>
+        </div>
+        <div class="about-value">
+          <div class="about-value-icon">⚡</div>
+          <div class="about-value-title">Entrega inmediata</div>
+          <div class="about-value-desc">Todos los productos se descargan al instante, sin esperas.</div>
+        </div>
+        <div class="about-value">
+          <div class="about-value-icon">💡</div>
+          <div class="about-value-title">Creatividad</div>
+          <div class="about-value-desc">Recursos únicos que no encontrás en ningún otro lado.</div>
+        </div>
+        <div class="about-value">
+          <div class="about-value-icon">🤝</div>
+          <div class="about-value-title">Soporte real</div>
+          <div class="about-value-desc">Ante cualquier consulta respondemos rápido y con dedicación.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTOS -->
+<section class="products" id="productos">
+  <div class="section-inner">
+    <div class="section-header fade-up">
+      <div class="section-tag">Catálogo</div>
+      <h2 class="section-title">Nuestros productos</h2>
+      <p class="section-sub">Recursos digitales diseñados con cuidado para cada aspecto de tu vida.</p>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card fade-up">
+        <div class="product-img">📅
+          <span class="product-badge">Nuevo</span>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Organizadores</div>
+          <div class="product-name">Agenda Digital 2025</div>
+          <div class="product-desc">Planificador anual completo con calendario, metas mensuales y seguimiento de hábitos.</div>
+          <div class="product-footer">
+            <div class="product-price">$ —</div>
+            <a href="#contacto" class="btn-product">Ver más</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img">🗓️</div>
+        <div class="product-body">
+          <div class="product-category">Organizadores</div>
+          <div class="product-name">Planificador Semanal</div>
+          <div class="product-desc">Organizá tu semana con claridad. Incluye espacio para tareas, prioridades y notas.</div>
+          <div class="product-footer">
+            <div class="product-price">$ —</div>
+            <a href="#contacto" class="btn-product">Ver más</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img">🎉
+          <span class="product-badge" style="background:#637E92">Popular</span>
+        </div>
+        <div class="product-body">
+          <div class="product-category">Invitaciones</div>
+          <div class="product-name">Invitación Interactiva</div>
+          <div class="product-desc">Invitaciones digitales animadas para cumpleaños, casamientos y eventos especiales.</div>
+          <div class="product-footer">
+            <div class="product-price">$ —</div>
+            <a href="#contacto" class="btn-product">Ver más</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img">📚</div>
+        <div class="product-body">
+          <div class="product-category">E-books</div>
+          <div class="product-name">E-book Organización Digital</div>
+          <div class="product-desc">Guía práctica para organizar tu vida digital: archivos, tareas, metas y productividad.</div>
+          <div class="product-footer">
+            <div class="product-price">$ —</div>
+            <a href="#contacto" class="btn-product">Ver más</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img">✉️</div>
+        <div class="product-body">
+          <div class="product-category">Invitaciones</div>
+          <div class="product-name">Pack Invitaciones Temáticas</div>
+          <div class="product-desc">Colección de diseños para distintas ocasiones. Editables y con link de confirmación.</div>
+          <div class="product-footer">
+            <div class="product-price">$ —</div>
+            <a href="#contacto" class="btn-product">Ver más</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img">🌟</div>
+        <div class="product-body">
+          <div class="product-category">E-books</div>
+          <div class="product-name">Guía de Productividad</div>
+          <div class="product-desc">Métodos y herramientas para ser más productivo sin agotarte. Enfocado en la realidad argentina.</div>
+          <div class="product-footer">
+            <div class="product-price">$ —</div>
+            <a href="#contacto" class="btn-product">Ver más</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ASISTAPP -->
+<section class="asistapp-section" id="asistapp">
+  <div class="section-inner">
+    <div class="asistapp-inner">
+      <div class="fade-up">
+        <div class="section-tag asistapp-tag">Servicio destacado</div>
+        <h2 class="section-title asistapp-title">AsistApp — El sistema de asistencia que los docentes merecen</h2>
+        <p class="section-sub asistapp-sub">Registrá la asistencia de tus alumnos con códigos QR. Sin papeles, sin agendas perdidas. Todo guardado en la nube al instante.</p>
+        <div class="asistapp-features">
+          <div class="asistapp-feat"><div class="asistapp-feat-icon">🔲</div>Códigos QR por alumno</div>
+          <div class="asistapp-feat"><div class="asistapp-feat-icon">☁️</div>Datos en la nube</div>
+          <div class="asistapp-feat"><div class="asistapp-feat-icon">📊</div>Informes Word/PDF</div>
+          <div class="asistapp-feat"><div class="asistapp-feat-icon">📱</div>Desde el celular</div>
+          <div class="asistapp-feat"><div class="asistapp-feat-icon">📋</div>Modo Preceptor</div>
+          <div class="asistapp-feat"><div class="asistapp-feat-icon">📱</div>WhatsApp a familias</div>
+        </div>
+        <div class="asistapp-actions">
+          <a href="https://digitalshop-app.github.io/AsistApp/" class="btn-asistapp" target="_blank">🚀 Probar gratis</a>
+          <a href="#" class="btn-asistapp-outline">Ver más info</a>
+        </div>
+      </div>
+      <div class="asistapp-mockup fade-up">
+        <div class="asistapp-mockup-header">
+          <div class="asistapp-mockup-logo">📋 Asist<span>App</span></div>
+          <div class="asistapp-mockup-badge">En vivo</div>
+        </div>
+        <div class="mock-row"><div class="mock-dot p"></div>García, Lucía — Presente</div>
+        <div class="mock-row"><div class="mock-dot p"></div>López, Martín — Presente</div>
+        <div class="mock-row"><div class="mock-dot a"></div>Pérez, Ana — Ausente</div>
+        <div class="mock-row"><div class="mock-dot j"></div>Torres, Juan — Justificado</div>
+        <div class="mock-row"><div class="mock-dot p"></div>Rodríguez, Sol — Presente</div>
+        <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;font-size:0.75rem;color:rgba(255,255,255,0.5);font-weight:700">
+          <span>4 presentes</span><span>1 ausente</span><span>1 justificado</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GRATIS -->
+<section class="free-section" id="gratis">
+  <div class="section-inner">
+    <div class="section-header centered fade-up">
+      <div class="section-tag">Sin costo</div>
+      <h2 class="section-title">Recursos gratuitos para vos</h2>
+      <p class="section-sub">Porque creemos en compartir. Descargá estos recursos sin pagar nada.</p>
+    </div>
+    <div class="free-grid">
+      <div class="free-card fade-up">
+        <span class="free-icon">📅</span>
+        <div class="free-title">Planificador Mensual Gratis</div>
+        <div class="free-desc">Template para organizar tu mes. Imprimible o editable digitalmente.</div>
+        <a href="#contacto" class="btn-free">⬇️ Descargar gratis</a>
+      </div>
+      <div class="free-card fade-up">
+        <span class="free-icon">✅</span>
+        <div class="free-title">Lista de Hábitos</div>
+        <div class="free-desc">Tracker de hábitos para 30 días. Simple, visual y motivador.</div>
+        <a href="#contacto" class="btn-free">⬇️ Descargar gratis</a>
+      </div>
+      <div class="free-card fade-up">
+        <span class="free-icon">📝</span>
+        <div class="free-title">Notas Digitales</div>
+        <div class="free-desc">Pack de 5 plantillas de notas para Notion, GoodNotes o impresión.</div>
+        <a href="#contacto" class="btn-free">⬇️ Descargar gratis</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="testimonials">
+  <div class="section-inner">
+    <div class="section-header centered fade-up">
+      <div class="section-tag">Testimonios</div>
+      <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-up">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">"La agenda digital me cambió la forma de planificar. Es preciosa y muy funcional. Ya la recomendé a todas mis amigas."</p>
+        <div class="t-author">
+          <div class="t-avatar">👩</div>
+          <div><div class="t-name">Valentina C.</div><div class="t-role">Docente — Buenos Aires</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">"La invitación digital de mi cumpleaños fue un éxito total. Todos preguntaban dónde la había hecho. ¡Increíble calidad!"</p>
+        <div class="t-author">
+          <div class="t-avatar">👩</div>
+          <div><div class="t-name">Sofía M.</div><div class="t-role">Diseñadora — Córdoba</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">"AsistApp me ahorró horas de trabajo. Paso lista en 2 minutos con el QR y tengo todo guardado automáticamente."</p>
+        <div class="t-author">
+          <div class="t-avatar">👨</div>
+          <div><div class="t-name">Carlos R.</div><div class="t-role">Profesor — La Plata</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contact" id="contacto">
+  <div class="section-inner">
+    <div class="contact-inner">
+      <div class="fade-up">
+        <div class="section-tag">Contacto</div>
+        <div class="contact-info-title">¿Tenés alguna consulta?</div>
+        <p class="contact-info-sub">Escribinos por cualquiera de estos medios y te respondemos a la brevedad. También podés hacer tu pedido personalizado.</p>
+        <div class="contact-links">
+          <a href="mailto:soydigitalshop@gmail.com" class="contact-link">
+            <div class="contact-link-icon">✉️</div>
+            soydigitalshop@gmail.com
+          </a>
+          <a href="https://instagram.com/digitalshop.ar" class="contact-link" target="_blank">
+            <div class="contact-link-icon">📸</div>
+            @digitalshop.ar
+          </a>
+          <a href="https://wa.me/54" class="contact-link" target="_blank">
+            <div class="contact-link-icon">💬</div>
+            WhatsApp (próximamente)
+          </a>
+        </div>
+      </div>
+      <div class="contact-form fade-up">
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--ink);margin-bottom:1.5rem">Envianos un mensaje</h3>
+        <div class="form-group">
+          <label>Tu nombre</label>
+          <input type="text" placeholder="María García">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="tu@email.com">
+        </div>
+        <div class="form-group">
+          <label>Producto de interés</label>
+          <select>
+            <option>Seleccioná una opción</option>
+            <option>Organizadores / Agendas</option>
+            <option>Invitaciones Digitales</option>
+            <option>E-books</option>
+            <option>AsistApp</option>
+            <option>Recurso Gratuito</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mensaje</label>
+          <textarea placeholder="Contanos en qué podemos ayudarte..."></textarea>
+        </div>
+        <button class="btn-contact" onclick="sendContact()">✉️ Enviar mensaje</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <div class="section-inner" style="text-align:center">
+    <div class="fade-up">
+      <div class="section-tag" style="background:rgba(255,255,255,0.15);color:white">Empezá hoy</div>
+      <h2 class="section-title">¿Lista para organizar tu vida digital?</h2>
+      <p class="section-sub">Explorá todos nuestros productos y encontrá el que mejor se adapta a vos.</p>
+      <div class="cta-actions">
+        <a href="#productos" class="btn-cta-white">🛍 Ver todos los productos</a>
+        <a href="#gratis" class="btn-cta-outline">🎁 Empezar gratis</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Digital Shop</div>
+      <p class="footer-desc">Productos digitales para inspirar, organizar y simplificar tu vida. Diseño, creatividad y tecnología en un solo lugar.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Productos</div>
+      <ul class="footer-links">
+        <li><a href="#productos">Organizadores</a></li>
+        <li><a href="#productos">Invitaciones</a></li>
+        <li><a href="#productos">E-books</a></li>
+        <li><a href="#asistapp">AsistApp</a></li>
+        <li><a href="#gratis">Recursos gratis</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Info</div>
+      <ul class="footer-links">
+        <li><a href="#nosotros">Quiénes somos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="mailto:soydigitalshop@gmail.com">Email</a></li>
+        <li><a href="https://digitalshop-app.github.io/AsistApp/" target="_blank">AsistApp</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Digital Shop · Buenos Aires, Argentina</span>
+    <span>Desarrollado con ❤️ por Digital Shop</span>
+  </div>
+</footer>
+
+<script>
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Mobile menu
+function toggleMenu() {
+  const links = document.querySelector('.nav-links');
+  if (links.style.display === 'flex') {
+    links.style.display = 'none';
+  } else {
+    links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:white;padding:1.5rem 2rem;border-bottom:1px solid #e8ddd2;gap:1rem;z-index:99';
+  }
+}
+
+// Contact form
+function sendContact() {
+  const btn = document.querySelector('.btn-contact');
+  btn.textContent = '✅ Mensaje enviado';
+  btn.style.background = '#27ae60';
+  setTimeout(() => {
+    btn.textContent = '✉️ Enviar mensaje';
+    btn.style.background = '';
+  }, 3000);
+}
+</script>
+</body>
+</html>
 
